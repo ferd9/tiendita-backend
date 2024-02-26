@@ -1,8 +1,8 @@
-package com.ferjava.dao.impl;
+package com.ferjava.tienda.dao.impl;
 
-import com.ferjava.dao.UsuarioDao;
-import com.ferjava.dto.LoginUsuarioDTO;
-import com.ferjava.models.UserEntity;
+import com.ferjava.tienda.dao.UsuarioDao;
+import com.ferjava.tienda.dto.LoginUsuarioDTO;
+import com.ferjava.tienda.models.UserEntity;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Repository;

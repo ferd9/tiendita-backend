@@ -1,4 +1,4 @@
-package com.ferjava.models;
+package com.ferjava.tienda.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -14,22 +14,25 @@ public class UserEntity {
     public UserEntity() {
     }
 
-
-    public UserEntity(String nombre, String apellido, String email, String telefono, String password) {
+    public UserEntity(String nombre, String apellido, String email, String username, String telefono, String password, Set<RoleEntity> roles) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.username = username;
         this.telefono = telefono;
         this.password = password;
+        this.roles = roles;
     }
 
-    public UserEntity(Long id, String nombre, String apellido, String email, String telefono, String password) {
+    public UserEntity(Long id, String nombre, String apellido, String email, String username, String telefono, String password, Set<RoleEntity> roles) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.username = username;
         this.telefono = telefono;
         this.password = password;
+        this.roles = roles;
     }
 
     @Id
@@ -74,6 +77,13 @@ public class UserEntity {
         this.id = id;
     }
 
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
 
     public String getUsername() {
         return username;

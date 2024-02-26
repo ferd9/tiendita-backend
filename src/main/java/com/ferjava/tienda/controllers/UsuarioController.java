@@ -1,9 +1,9 @@
-package com.ferjava.controllers;
+package com.ferjava.tienda.controllers;
 
-import com.ferjava.dao.UsuarioDao;
-import com.ferjava.models.UserEntity;
+import com.ferjava.tienda.dao.UsuarioDao;
+import com.ferjava.tienda.models.UserEntity;
 
-import com.ferjava.utils.JWTUtil;
+import com.ferjava.tienda.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;

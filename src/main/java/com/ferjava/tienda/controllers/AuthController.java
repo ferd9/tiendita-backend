@@ -1,9 +1,9 @@
-package com.ferjava.controllers;
+package com.ferjava.tienda.controllers;
 
-import com.ferjava.dao.UsuarioDao;
-import com.ferjava.dto.LoginUsuarioDTO;
-import com.ferjava.models.UserEntity;
-import com.ferjava.utils.JWTUtil;
+import com.ferjava.tienda.dao.UsuarioDao;
+import com.ferjava.tienda.dto.LoginUsuarioDTO;
+import com.ferjava.tienda.models.UserEntity;
+import com.ferjava.tienda.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

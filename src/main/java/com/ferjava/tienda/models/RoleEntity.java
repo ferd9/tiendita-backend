@@ -1,4 +1,4 @@
-package com.ferjava.models;
+package com.ferjava.tienda.models;
 
 import javax.persistence.*;
 

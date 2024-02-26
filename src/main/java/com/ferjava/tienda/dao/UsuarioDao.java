@@ -1,7 +1,7 @@
-package com.ferjava.dao;
+package com.ferjava.tienda.dao;
 
-import com.ferjava.dto.LoginUsuarioDTO;
-import com.ferjava.models.UserEntity;
+import com.ferjava.tienda.dto.LoginUsuarioDTO;
+import com.ferjava.tienda.models.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.ferjava.models;
+package com.ferjava.tienda.models;
 
 public enum ERole {
     ADMIN,

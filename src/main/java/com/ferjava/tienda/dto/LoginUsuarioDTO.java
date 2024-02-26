@@ -1,4 +1,4 @@
-package com.ferjava.dto;
+package com.ferjava.tienda.dto;
 
 public class LoginUsuarioDTO {
 
