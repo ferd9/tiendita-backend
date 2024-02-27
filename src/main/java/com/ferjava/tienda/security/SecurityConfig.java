@@ -45,6 +45,8 @@ public class SecurityConfig {
                 .csrf(config -> config.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.antMatchers("/hello").permitAll();
+                    auth.antMatchers("/categoria/**").permitAll();
+                    auth.antMatchers("/tag/**").permitAll();
                    // auth.requestMatchers(EndpointRequest.to("hello")).permitAll();
                     auth.anyRequest().authenticated();
                 })

@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Arrays;
 import java.util.Set;
 
-@EntityScan(basePackages = {"com.ferjava.tienda"})
+//@EntityScan(basePackages = {"com.ferjava.tienda"})
 @ComponentScan(basePackages = {"com.ferjava.tienda"})
 @Configuration
 @EnableAutoConfiguration
