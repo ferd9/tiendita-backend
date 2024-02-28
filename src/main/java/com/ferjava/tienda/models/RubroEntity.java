@@ -5,7 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="rubros")
+@Table(name="rubros", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "nombre", name = "uniqueNameConstraint")})
 public class RubroEntity {
 
     @Id

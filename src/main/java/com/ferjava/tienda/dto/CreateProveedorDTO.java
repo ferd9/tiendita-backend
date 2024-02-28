@@ -1,18 +1,14 @@
-package com.ferjava.tienda.models;
+package com.ferjava.tienda.dto;
 
-import javax.persistence.*;
+import com.ferjava.tienda.models.RubroEntity;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-@Entity
-@Table(name="proveedores", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"nombre", "ruc"}, name = "uniqueNameConstraint")})
-public class ProveedorEntity {
+public class CreateProveedorDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -27,7 +23,6 @@ public class ProveedorEntity {
     @Size(max = 15)
     private String ruc;
 
-
     @Email
     @Size(max = 120)
     private String email;
@@ -35,18 +30,12 @@ public class ProveedorEntity {
     @Size(max = 15)
     private String telefono;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = RubroEntity.class, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "proveedores_rubro",
-            joinColumns = @JoinColumn(name = "proveedor_id"),
-            inverseJoinColumns = @JoinColumn(name = "rubro_id"))
     private Set<RubroEntity> rubros;
 
-
-    public ProveedorEntity() {
+    public CreateProveedorDTO() {
     }
 
-    public ProveedorEntity(String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros) {
+    public CreateProveedorDTO(String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.ruc = ruc;
@@ -55,7 +44,7 @@ public class ProveedorEntity {
         this.rubros = rubros;
     }
 
-    public ProveedorEntity(Long id, String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros) {
+    public CreateProveedorDTO(Long id, String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -121,5 +110,3 @@ public class ProveedorEntity {
         this.rubros = rubros;
     }
 }
-
-

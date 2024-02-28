@@ -47,6 +47,9 @@ public class SecurityConfig {
                     auth.antMatchers("/hello").permitAll();
                     auth.antMatchers("/categoria/**").permitAll();
                     auth.antMatchers("/tag/**").permitAll();
+                    auth.antMatchers("/rubro/**").permitAll();
+                    auth.antMatchers("/marca/**").permitAll();
+                    auth.antMatchers("/proveedor/**").permitAll();
                    // auth.requestMatchers(EndpointRequest.to("hello")).permitAll();
                     auth.anyRequest().authenticated();
                 })

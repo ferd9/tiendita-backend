@@ -1,16 +1,10 @@
-package com.ferjava.tienda.models;
+package com.ferjava.tienda.dto;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Entity
-@Table(name="marcas", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "nombre", name = "uniqueNameConstraint")})
-public class MarcaEntity {
+public class CreateMarcaDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -20,15 +14,15 @@ public class MarcaEntity {
     @Size(max = 255)
     private String descripcion;
 
-    public MarcaEntity() {
-    }
 
-    public MarcaEntity(String nombre, String descripcion) {
+    public CreateMarcaDTO() {
+    }
+    public CreateMarcaDTO(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    public MarcaEntity(Long id, String nombre, String descripcion) {
+    public CreateMarcaDTO(Long id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;

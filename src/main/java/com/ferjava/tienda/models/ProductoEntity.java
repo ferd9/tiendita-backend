@@ -11,35 +11,7 @@ import java.util.Set;
 public class ProductoEntity {
 
 
-    public ProductoEntity() {
-    }
 
-    public ProductoEntity(String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.imgenUrl = imgenUrl;
-        this.marca = marca;
-        this.disponible = disponible;
-        this.fechaDeLanzamiento = fechaDeLanzamiento;
-        this.categorias = categorias;
-        this.proveedores = proveedores;
-        this.tags = tags;
-    }
-
-    public ProductoEntity(Long id, String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.imgenUrl = imgenUrl;
-        this.marca = marca;
-        this.disponible = disponible;
-        this.fechaDeLanzamiento = fechaDeLanzamiento;
-        this.categorias = categorias;
-        this.proveedores = proveedores;
-        this.tags = tags;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,6 +62,36 @@ public class ProductoEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<TagEntity> tags;
 
+
+    public ProductoEntity() {
+    }
+
+    public ProductoEntity(String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.imgenUrl = imgenUrl;
+        this.marca = marca;
+        this.disponible = disponible;
+        this.fechaDeLanzamiento = fechaDeLanzamiento;
+        this.categorias = categorias;
+        this.proveedores = proveedores;
+        this.tags = tags;
+    }
+
+    public ProductoEntity(Long id, String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.imgenUrl = imgenUrl;
+        this.marca = marca;
+        this.disponible = disponible;
+        this.fechaDeLanzamiento = fechaDeLanzamiento;
+        this.categorias = categorias;
+        this.proveedores = proveedores;
+        this.tags = tags;
+    }
 
     public Long getId() {
         return id;
