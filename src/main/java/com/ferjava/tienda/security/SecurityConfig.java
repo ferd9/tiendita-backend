@@ -50,6 +50,7 @@ public class SecurityConfig {
                     auth.antMatchers("/rubro/**").permitAll();
                     auth.antMatchers("/marca/**").permitAll();
                     auth.antMatchers("/proveedor/**").permitAll();
+                    auth.antMatchers("/producto/**").permitAll();
                    // auth.requestMatchers(EndpointRequest.to("hello")).permitAll();
                     auth.anyRequest().authenticated();
                 })

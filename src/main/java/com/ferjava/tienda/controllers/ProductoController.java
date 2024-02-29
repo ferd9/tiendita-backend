@@ -4,13 +4,13 @@ import com.ferjava.tienda.dto.CreateProductoDTO;
 import com.ferjava.tienda.models.ProductoEntity;
 import com.ferjava.tienda.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/producto")
@@ -18,6 +18,7 @@ public class ProductoController {
 
     @Autowired
     private ProductoRepository productoRepository;
+    @PostMapping("/crear")
     public ResponseEntity<?> crearProducto(@RequestBody CreateProductoDTO createProductoDTO){
          ProductoEntity productoEntity = new ProductoEntity();
                         productoEntity.setNombre(createProductoDTO.getNombre());
@@ -35,6 +36,7 @@ public class ProductoController {
         return ResponseEntity.ok(productoEntity);
     }
 
+    @PostMapping("/crear/muchos")
     public ResponseEntity<?> crearProductos(@RequestBody List<CreateProductoDTO> createProductoDTOList){
 
         List<ProductoEntity> productoEntityList = new ArrayList<>();
@@ -55,10 +57,12 @@ public class ProductoController {
         return ResponseEntity.ok(productoEntityList);
     }
 
+    @GetMapping("/listar")
     public ResponseEntity<?> listarProductos(){
         return ResponseEntity.ok(this.productoRepository.findAll());
     }
 
+    @PostMapping("/actualizar")
     public ResponseEntity<?> actualizarProducto(@RequestBody CreateProductoDTO createProductoDTO){
         ProductoEntity productoEntity = new ProductoEntity();
                         productoEntity.setId(createProductoDTO.getId());
@@ -77,34 +81,73 @@ public class ProductoController {
         return ResponseEntity.ok(productoEntity);
     }
 
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<?> buscarProductoPorId(@PathVariable Long id){
-
-        return null;
+        Optional<ProductoEntity> byId = this.productoRepository.findById(id);
+        if(byId == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado.");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(byId);
     }
 
-    public ResponseEntity<?> buscarProductoPorNombre(@RequestParam String nombre){
-        return null;
+    @GetMapping("/buscar-por-nombre")
+    public ResponseEntity<?> buscarProductoPorNombre(@RequestParam(name = "q") String nombre){
+        List<ProductoEntity> listProductos = this.productoRepository.findByNombre(nombre);
+        if(listProductos == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Productos no encontrados.");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(listProductos);
     }
 
-    public ResponseEntity<?> buscarProductoPrecioMayorQue(@RequestParam Double precio){
-        return null;
+    @GetMapping("/buscar-precio-mayor")
+    public ResponseEntity<?> buscarProductoPrecioMayorQue(@RequestParam(name="q")Double precio){
+
+        List<ProductoEntity> listProductos = this.productoRepository.findByprecioGreaterThan(precio);
+        if(listProductos == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Productos no encontrados.");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(listProductos);
     }
 
-    public ResponseEntity<?> buscarProductoPrecioMenorQue(@RequestParam Double precio){
-        return null;
+    @GetMapping("/buscar-precio-menor")
+    public ResponseEntity<?> buscarProductoPrecioMenorQue(@RequestParam(name="q") Double precio){
+        List<ProductoEntity> listProductos = this.productoRepository.findByprecioLessThan(precio);
+        if(listProductos == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Productos no encontrados.");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(listProductos);
     }
 
-    public ResponseEntity<?> buscarPorPrecio(@RequestParam Double precio){
-        return  null;
+    @GetMapping("/buscar-por-precio")
+    public ResponseEntity<?> buscarPorPrecio(@RequestParam(name = "q") Double precio){
+        List<ProductoEntity> listProductos = this.productoRepository.findByprecio(precio);
+        if(listProductos == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Productos no encontrados.");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(listProductos);
     }
 
-    public ResponseEntity<?> listarProductosPorDiponibilidad(@RequestParam Boolean disponibilidad){
-        return null;
+    @GetMapping("/disponible")
+    public ResponseEntity<?> listarProductosPorDiponibilidad(@RequestParam(name="q") Boolean disponibilidad){
+        List<ProductoEntity> listProductos = new ArrayList<>(0);
+        if(disponibilidad){
+            listProductos = this.productoRepository.findBydisponibleTrue();
+        }else{
+            listProductos = this.productoRepository.findBydisponibleFalse();
+        }
+        if(listProductos == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Productos no encontrados.");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(listProductos);
     }
 
-    public ResponseEntity<?> buscarPorFechaDeLanzamiento(@RequestParam LocalDate fechaDeLanzamiento){
-        return null;
+    @GetMapping("/buscar-fecha")
+    public ResponseEntity<?> buscarPorFechaDeLanzamiento(@RequestParam(name = "q") LocalDate fechaDeLanzamiento){
+        List<ProductoEntity> listProductos = this.productoRepository.findByfechaDeLanzamiento(fechaDeLanzamiento);
+        if(listProductos == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Productos no encontrados.");
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(listProductos);
     }
-
 
 }

@@ -29,7 +29,7 @@ public class ProductoEntity {
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = MarcaEntity.class, cascade = CascadeType.PERSIST)
     @JoinTable(
-            name = "producto_tags",
+            name = "producto_marca",
             joinColumns = @JoinColumn(name = "producto_id"),
             inverseJoinColumns = @JoinColumn(name = "marca_id"))
     private Set<MarcaEntity> marca;
