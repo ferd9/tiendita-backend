@@ -1,4 +1,9 @@
-package com.ferjava.tienda.models;
+package com.ferjava.tienda.dto;
+
+import com.ferjava.tienda.models.CategoriaEntity;
+import com.ferjava.tienda.models.MarcaEntity;
+import com.ferjava.tienda.models.ProveedorEntity;
+import com.ferjava.tienda.models.TagEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -6,64 +11,29 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Entity
-@Table(name="productos")
-public class ProductoEntity {
+public class CreateProductoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotBlank
     @Size(max = 120)
     private String nombre;
-
     @Size(max = 500)
     private String descripcion;
-
-
+    @NotBlank
     private Double precio;
-
     @Size(max = 120)
     private String imgenUrl;
-
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = MarcaEntity.class, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "producto_tags",
-            joinColumns = @JoinColumn(name = "producto_id"),
-            inverseJoinColumns = @JoinColumn(name = "marca_id"))
     private Set<MarcaEntity> marca;
-
     private Boolean disponible;
-
     private LocalDate fechaDeLanzamiento;
-
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = CategoriaEntity.class, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "producto_categorias",
-            joinColumns = @JoinColumn(name = "producto_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private Set<CategoriaEntity> categorias;
-
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProveedorEntity.class, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "producto_proveedores",
-            joinColumns = @JoinColumn(name = "producto_id"),
-            inverseJoinColumns = @JoinColumn(name = "proveedor_id"))
     private Set<ProveedorEntity> proveedores;
-
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = TagEntity.class, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "producto_tags",
-            joinColumns = @JoinColumn(name = "producto_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<TagEntity> tags;
 
-
-    public ProductoEntity() {
+    public CreateProductoDTO() {
     }
 
-    public ProductoEntity(String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
+    public CreateProductoDTO(String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -76,7 +46,7 @@ public class ProductoEntity {
         this.tags = tags;
     }
 
-    public ProductoEntity(Long id, String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
+    public CreateProductoDTO(Long id, String nombre, String descripcion, Double precio, String imgenUrl, Set<MarcaEntity> marca, Boolean disponible, LocalDate fechaDeLanzamiento, Set<CategoriaEntity> categorias, Set<ProveedorEntity> proveedores, Set<TagEntity> tags) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
