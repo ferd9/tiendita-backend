@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/producto")
+@CrossOrigin("*")
 public class ProductoController {
 
     @Autowired
@@ -62,7 +63,7 @@ public class ProductoController {
         return ResponseEntity.ok(this.productoRepository.findAll());
     }
 
-    @PostMapping("/actualizar")
+    @PutMapping("/actualizar")
     public ResponseEntity<?> actualizarProducto(@RequestBody CreateProductoDTO createProductoDTO){
         ProductoEntity productoEntity = new ProductoEntity();
                         productoEntity.setId(createProductoDTO.getId());
