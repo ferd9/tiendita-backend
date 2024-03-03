@@ -1,9 +1,13 @@
 package com.ferjava.tienda.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -45,12 +49,8 @@ public class ProductoEntity {
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private Set<CategoriaEntity> categorias;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProveedorEntity.class, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "producto_proveedores",
-            joinColumns = @JoinColumn(name = "producto_id"),
-            inverseJoinColumns = @JoinColumn(name = "proveedor_id"))
-    private Set<ProveedorEntity> proveedores;
+    @ManyToMany(mappedBy = "productos", cascade = CascadeType.MERGE)
+    private Set<ProveedorEntity> proveedores = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = TagEntity.class, cascade = CascadeType.PERSIST)
     @JoinTable(

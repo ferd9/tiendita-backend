@@ -2,15 +2,20 @@ package com.ferjava.tienda.controllers;
 
 import com.ferjava.tienda.dto.CreateProductoDTO;
 import com.ferjava.tienda.models.ProductoEntity;
+import com.ferjava.tienda.models.ProveedorEntity;
 import com.ferjava.tienda.repositories.ProductoRepository;
+import com.ferjava.tienda.repositories.ProveedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/producto")
@@ -19,8 +24,13 @@ public class ProductoController {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private ProveedorRepository proveedorRepository;
+    @Transactional
     @PostMapping("/crear")
     public ResponseEntity<?> crearProducto(@RequestBody CreateProductoDTO createProductoDTO){
+
          ProductoEntity productoEntity = new ProductoEntity();
                         productoEntity.setNombre(createProductoDTO.getNombre());
                         productoEntity.setDescripcion(createProductoDTO.getDescripcion());
@@ -31,6 +41,23 @@ public class ProductoController {
                         productoEntity.setFechaDeLanzamiento(createProductoDTO.getFechaDeLanzamiento());
                         productoEntity.setCategorias(createProductoDTO.getCategorias());
                         productoEntity.setProveedores(createProductoDTO.getProveedores());
+                        productoEntity.getProveedores().addAll(
+                         createProductoDTO.getProveedores()
+                                 .stream()
+                                 .map(prvdor -> {
+                                     ProveedorEntity prvNormalizado = null;
+                                     if(prvdor.getId() == null)
+                                     {
+                                         prvNormalizado  = this.proveedorRepository.save(prvdor);
+                                     }else{
+                                         Optional<ProveedorEntity> encontrado = this.proveedorRepository.findById(prvdor.getId());
+                                         prvNormalizado = encontrado.orElseThrow();
+                                     }
+
+                                     prvNormalizado.getProductos().add(productoEntity);
+                                     return prvNormalizado;
+                                 }).collect(Collectors.toList())
+                        );
                         productoEntity.setTags(createProductoDTO.getTags());
 
         this.productoRepository.save(productoEntity);

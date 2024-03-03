@@ -2,10 +2,12 @@ package com.ferjava.tienda.repositories;
 
 import com.ferjava.tienda.models.ProductoEntity;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
-
+@Repository
 public interface ProductoRepository extends CrudRepository<ProductoEntity, Long> {
 
     public List<ProductoEntity> findByNombre(String nombre);

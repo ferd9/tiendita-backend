@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/proveedor")
+@CrossOrigin("*")
 public class ProveedorController {
 
     @Autowired

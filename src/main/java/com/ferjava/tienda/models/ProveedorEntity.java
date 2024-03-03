@@ -1,9 +1,13 @@
 package com.ferjava.tienda.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -42,20 +46,29 @@ public class ProveedorEntity {
             inverseJoinColumns = @JoinColumn(name = "rubro_id"))
     private Set<RubroEntity> rubros;
 
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProductoEntity.class, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "proveedor_producto",
+            joinColumns = @JoinColumn(name = "proveedor_id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id"))
+    @JsonIgnore
+    private Set<ProductoEntity> productos = new HashSet<>();
+
 
     public ProveedorEntity() {
     }
 
-    public ProveedorEntity(String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros) {
+    public ProveedorEntity(String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros, Set<ProductoEntity> productos) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.ruc = ruc;
         this.email = email;
         this.telefono = telefono;
         this.rubros = rubros;
+        this.productos = productos;
     }
 
-    public ProveedorEntity(Long id, String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros) {
+    public ProveedorEntity(Long id, String nombre, String direccion, String ruc, String email, String telefono, Set<RubroEntity> rubros, Set<ProductoEntity> productos) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -63,6 +76,7 @@ public class ProveedorEntity {
         this.email = email;
         this.telefono = telefono;
         this.rubros = rubros;
+        this.productos = productos;
     }
 
     public Long getId() {
@@ -119,6 +133,14 @@ public class ProveedorEntity {
 
     public void setRubros(Set<RubroEntity> rubros) {
         this.rubros = rubros;
+    }
+
+    public Set<ProductoEntity> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<ProductoEntity> productos) {
+        this.productos = productos;
     }
 }
 
