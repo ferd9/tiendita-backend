@@ -1,6 +1,9 @@
 package com.ferjava.tienda.repositories;
 
 import com.ferjava.tienda.models.ProductoEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +13,8 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends CrudRepository<ProductoEntity, Long> {
 
+
+    //public Page<ProductoEntity> findByIdNotIn(List<Integer> ids, Pageable pageable);
     public List<ProductoEntity> findByNombre(String nombre);
     public List<ProductoEntity> findByprecioGreaterThan(Double precio);
 
