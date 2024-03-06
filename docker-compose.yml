@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  mySQL:
+    image: mysql:8.0
+    restart: always
+    container_name: tienda_bd
+    environment:
+      - MYSQL_DATABASE=tiendas
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - '3306:3306'
+    volumes:
+      - ~/Documents/vol:/var/lib/mysql   
