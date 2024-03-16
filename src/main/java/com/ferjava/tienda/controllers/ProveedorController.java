@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static org.springframework.data.domain.PageRequest.of;
 
 @RestController
 @RequestMapping("/proveedor")
@@ -53,8 +54,9 @@ public class ProveedorController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<?> listarProveedores(){
-        return ResponseEntity.ok(this.proveedorRepository.findAll());
+    public ResponseEntity<?> listarProveedores(@RequestParam(name = "page") Integer page,
+                                               @RequestParam(name = "size") Integer size){
+        return ResponseEntity.ok(this.proveedorRepository.findAll(of(page, size)));
     }
 
     @PutMapping("/actualizar")
